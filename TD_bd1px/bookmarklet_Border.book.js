@@ -1,0 +1,1 @@
+javascript:(function()%7B%22use%20strict%22%3Bvar%20arytd%3DArray.from(document.querySelectorAll(%22td%22))%3Barytd.map(function(r)%7Breturn%20r.style.border%3D%221px%20solid%20red%22%7D)%3B%7D)()
