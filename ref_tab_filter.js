@@ -1,12 +1,10 @@
 /*==========================================
 =            get ref in INFO.md            =
 ==========================================*/
-const ref = document.querySelectorAll('tr > td')
-let idx = 0
-
-// get REF
-ref.forEach(elt => {
-  if(idx % 4 === 0){
+// get definitivly REF
+var idx = (idx||1)
+document.querySelectorAll('tr > td').forEach(elt => {
+  if( idx% 3 === 0){
     document.getElementById('_html').innerHTML += '<span>'+elt.textContent+'<br /></span>'
   }
   idx++
@@ -17,6 +15,11 @@ const lib = (x) => (4*x)+1
 let lib_min = 0
 
 while(lib_min < 4){
-  document.getElementById('_html').innerHTML += '<span>'+ref[lib(lib_min)].textContent+'<br /></span>'
+  document.getElementById('_html').innerHTML += '<span>'+document.querySelectorAll('tr > td')[lib(lib_min)].textContent+'<br /></span>'
   lib_min ++
 }
+
+// AL get lib ES5 NE fonctionne pas cause idx start 0
+// force idx à 1
+var idx = 1
+Array.from(document.querySelectorAll('tr > td')).map((item,idx=1)=>{return {item,idx} }).filter(item => item['idx'] % 3 === 0 )
