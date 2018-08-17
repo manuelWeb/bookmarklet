@@ -10,20 +10,22 @@ document.querySelectorAll('tr > td').forEach(elt => {
   idx++
 })
 
-// get LIB 2, 5, 8
+// get LIB 2, 5, 8 (price CD | ...)
 const lib = (x) => x+3
 let lib_min = 2
 
-while(lib_min < 8){
+while(lib_min < document.getElementsByTagName('td').length){
   document.getElementById('_html').innerHTML += '<span>'+document.querySelectorAll('tr > td')[lib_min].textContent+'<br /></span>'
   lib_min = lib(lib_min)
 }
 // get lib 1, 4, 7 (lib HO | CD | ...)
+// let lib_min = 1
 // FIXME variable wording too random
-const lib = (x) => x+3
-let lib_min = 1
+// const lib = (x) => x+3 // const déjà définie plus haut
 
-while(lib_min < 8){
+typeof(lib_min) == 'undefined' ? lib_min = 1 : console.log(`lib_min: ${lib_min} ${lib_min=1} `)
+
+while(lib_min < document.getElementsByTagName('td').length){
   console.log(lib_min)
   document.getElementById('_html').innerHTML += '<span>'+document.querySelectorAll('tr > td')[lib_min].textContent+'<br /></span>'
   lib_min = lib(lib_min)
