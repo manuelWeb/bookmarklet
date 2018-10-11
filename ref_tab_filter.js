@@ -55,7 +55,28 @@ while(lib_min < document.getElementsByTagName('td').length){
 /*===============================================
 =            selection date planning            =
 ===============================================*/
-let lib = (x) => x+5
+function rmDaysToDate(old_date) {
+  // split date dd / mm / yy
+  var split_date = old_date.split("/");
+  // Les mois 0 a 11 donc on enleve 1, cast avec *1
+  var new_date = new Date(
+    split_date[2], // yy
+    split_date[1] * 1 - 1, // mm
+    split_date[0] * 1 - 14 // days
+  );
+  
+  var new_day   = new_date.getDate();
+  var new_month = new_date.getMonth() + 1;
+  var new_year  = new_date.getYear();
+
+  new_day = (new_day < 10 ? "0" : "") + new_day; // ajoute un zéro devant pour la forme
+  new_month = (new_month < 10 ? "0" : "") + new_month; // ajoute un zéro devant pour la forme
+
+  var new_date_text = new_day + "/" + new_month + "/" + new_year;
+  return new_date_text;
+}
+
+let lib = (x) => x+6
 let lib_min = 3
 
 let ary_idbrand = ["tl-id", "al", "ho", "cd", "cv-vf", "mm", ]
@@ -69,23 +90,19 @@ let tdBrand = item.map((tdAry,idx) => {
   }
 })
 
-var objBrand = tdBrand.map(item => item)
+let objBrand = tdBrand.map(item => item)
 let AL = objBrand[1].TD
+const redt = /[0-9]{2}\/[0-9]{2}\/[0-9]{2}/g
+
 while (lib_min < AL.length) {
-  console.log(AL[lib_min])
-  lib_min = lib(lib_min)
-}
+  var dead = AL[lib_min].innerHTML.match(redt)
+  var dead_n = rmDaysToDate(dead[0])
+  // console.warn( rmDaysToDate(dead[0]) )
 
-// let cpt = 1
-// while (lib_min < tdAry.length) {
-//   console.log(tdAry[lib_min].innerHTML);
-//   lib_min = lib(lib_min)
-//   console.log(lib_min);
-// }
+  console.log(AL[lib_min],`-> ${dead[0]} ` , AL[lib_min+2], `${dead_n}`)
 
+  AL[lib_min+2].innerHTML = dead_n
 
-while(lib_min < document.getElementsByTagName('td').length){
-  document.getElementById('content').innerHTML += '<span>'+document.querySelectorAll('tr > td')[lib_min].textContent+'<br /></span>'
   lib_min = lib(lib_min)
 }
 
