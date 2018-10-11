@@ -55,7 +55,7 @@ while(lib_min < document.getElementsByTagName('td').length){
 /*===============================================
 =            selection date planning            =
 ===============================================*/
-let lib = (x) => x+6
+let lib = (x) => x+5
 let lib_min = 3
 
 let ary_idbrand = ["tl-id", "al", "ho", "cd", "cv-vf", "mm", ]
@@ -64,11 +64,17 @@ let item = ary_idbrand.map(id => document.querySelectorAll(`#${id} + table tr td
 let tdBrand = item.map((tdAry,idx) => {
   // console.warn(ary_idbrand[idx], ' ',tdAry,' tdAry.length ', tdAry.length,' idbrand.length ', ary_idbrand.length)
   return {
-    "brand": ary_idbrand[idx]
+    "brand": ary_idbrand[idx],
+    "TD": tdAry
   }
 })
 
-console.log(tdBrand)
+var objBrand = tdBrand.map(item => item)
+let AL = objBrand[1].TD
+while (lib_min < AL.length) {
+  console.log(AL[lib_min])
+  lib_min = lib(lib_min)
+}
 
 // let cpt = 1
 // while (lib_min < tdAry.length) {
