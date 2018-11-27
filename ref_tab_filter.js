@@ -1,7 +1,23 @@
 /*==========================================
 =            get ref in INFO.md            =
 ==========================================*/
-// get definitivly REF
+function getlib (lib_pos=1,next=3) {
+  let lib_next = (x) => x + next
+  while(lib_pos < document.getElementsByTagName('td').length){
+    console.log(`${document.querySelectorAll('tr > td')[lib_pos].textContent}`)
+    document.getElementById('_html').innerHTML +=
+    '<span>'+document.querySelectorAll('tr > td')[lib_pos].textContent+'<br /></span>'
+    lib_pos = lib_next(lib_pos)
+  }
+}
+
+// get table head
+console.log([...head].map((i)=>i))
+console.log( [...head].map( (i) => i.textContent ) )
+console.log([...head].map((i,x)=>({txt: i.textContent, index: x, html: i}) ))
+const tabhead = [...document.getElementsByTagName('th')].map((i,x)=>({txt: i.textContent, index: x, html: i}) )
+// get REF refact
+
 var idx = (idx||1)
 document.querySelectorAll('tr > td').forEach(elt => {
   if( idx% 3 === 0){
@@ -10,47 +26,6 @@ document.querySelectorAll('tr > td').forEach(elt => {
   idx++
 })
 
-// get LIB 2, 5, 8 (price CD | ...)
-let lib = (x) => x+3
-let lib_min = 2
-
-while(lib_min < document.getElementsByTagName('td').length){
-  document.getElementById('_html').innerHTML += '<span>'+document.querySelectorAll('tr > td')[lib_min].textContent+'<br /></span>'
-  lib_min = lib(lib_min)
-}
-
-// get lib 1, 4, 7 (lib HO | CD | ...)
-// FIXME variable wording too random
-// const lib = (x) => x+3 // const déjà définie plus haut
-typeof(lib_min) == 'undefined' ? lib_min = 1 : console.log(`lib_min: ${lib_min} ${lib_min=1} `)
-
-while(lib_min < document.getElementsByTagName('td').length){
-  console.log(lib_min)
-  document.getElementById('_html').innerHTML += '<span>'+document.querySelectorAll('tr > td')[lib_min].textContent+'<br /></span>'
-  lib_min = lib(lib_min)
-}
-
-// AL get lib ES5 NE fonctionne pas cause idx start 0
-// force idx à 1
-var idx = 1
-Array.from(document.querySelectorAll('tr > td')).map((item,idx=1)=>{return {item,idx} }).filter(item => item['idx'] % 3 === 0 )
-
-// REF MM
-let lib = (x) => x+4
-let lib_min = 0
-
-while(lib_min < document.getElementsByTagName('td').length){
-  document.getElementById('_html').innerHTML += '<span>'+document.querySelectorAll('tr > td')[lib_min].textContent+'<br /></span>'
-  lib_min = lib(lib_min)
-}
-// capacity MM
-let lib = (x) => x+4
-let lib_min = 2
-
-while(lib_min < document.getElementsByTagName('td').length){
-  document.getElementById('_html').innerHTML += '<span>'+document.querySelectorAll('tr > td')[lib_min].textContent+'<br /></span>'
-  lib_min = lib(lib_min)
-}
 
 /*===============================================
 =            selection date planning            =
@@ -79,9 +54,13 @@ function rmDaysToDate(old_date) {
 let lib = (x) => x+6
 let lib_min = 3
 
+
+/*================================
+=            PLANNING            =
+================================*/
+
 let ary_idbrand = ["tl-id", "al", "ho", "cd", "cv-vf", "mm", ]
 let item = ary_idbrand.map(id => document.querySelectorAll(`#${id} + table tr td`))
-
 let tdBrand = item.map((tdAry,idx) => {
   // console.warn(ary_idbrand[idx], ' ',tdAry,' tdAry.length ', tdAry.length,' idbrand.length ', ary_idbrand.length)
   return {
@@ -105,6 +84,7 @@ while (lib_min < AL.length) {
 
   lib_min = lib(lib_min)
 }
+/*=====  End of PLANNING  ======*/
 
 
 
@@ -113,4 +93,23 @@ while (lib_min < AL.length) {
 ==================================================*/
 // bookmarklet to dynamique prompt -> getElementsByClassName('js-btn')[0]
 document.getElementsByClassName('js-btn')[0].getAttribute("onclick");
+
+/*=============================================
+=            select tr > td add bd            =
+=============================================*/
+
+const cells = document.querySelectorAll('tr > td')
+;[...cells].map(cell => cell.style.border = '1px solid green')
+
+/*=====  End of select tr > td add bd  ======*/
+
+// keyboard evt
+let aryLetter = []
+const keyTg = (e) => {
+  console.log(e.key);
+  aryLetter.push(e.key)
+}
+document.addEventListener('keydown', keyTg)
+// stop
+aryLetter.join('')
 
